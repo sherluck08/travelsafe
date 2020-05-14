@@ -1,0 +1,55 @@
+<!-- REGENTS MAX -->
+
+{% extends "base.html" %}
+
+{% block app_content %}
+	<style>
+
+		body {
+			background-color: #f9f9f9;
+		}
+
+	.content {
+		background-color: white;
+		margin: 10px;
+		padding: 15px;
+		box-shadow: 4px 4px 4px lightgrey;
+	}
+
+	.classroom:hover {
+		box-shadow: 8px 8px 8px lightgrey;
+	}
+
+	.big-container {
+		background-color: #f9f9f9;
+	}
+
+	td {
+		border: 1px solid darkgrey;
+		margin: 10px;
+		padding: 10px;
+	}
+
+	</style>
+
+	<div class="conatiner">
+		<br>
+		<br>
+		<br>
+    <div class="content row big-container border border-secondary" id="row q_container" >
+			<h1> Testing hello hello </h1>
+
+			<div class="row border border-secondary">
+				<div class="col-md-6">
+					<h2>Travel From</h2>
+				</div>
+
+				<div class="col-md-6">
+					<h2>Travel To</h2>
+				</div>
+
+			</div>
+
+		</div>
+	</div>
+{% endblock %}
