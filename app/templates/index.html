@@ -6,11 +6,11 @@
 	<style>
 
 		body {
-			background-color: #f9f9f9;
+			background-color: darkgrey;
 		}
 
-	.content {
-		background-color: white;
+	.row {
+		background-color: lightgrey;
 		margin: 10px;
 		padding: 15px;
 		box-shadow: 4px 4px 4px lightgrey;
@@ -21,7 +21,12 @@
 	}
 
 	.big-container {
-		background-color: #f9f9f9;
+		background-color: darkgrey;
+		color: black;
+	}
+
+	.location {
+			border: 1px solid darkgrey;
 	}
 
 	td {
@@ -32,24 +37,71 @@
 
 	</style>
 
-	<div class="conatiner">
+
+	  <!-- this is a hidden tag to protect against cross-side request forgery-->
+	{{ form.hidden_tag() }}
+	<div class="container">
+		<form action="/index" method="post">
 		<br>
 		<br>
 		<br>
     <div class="content row big-container border border-secondary" id="row q_container" >
-			<h1> Testing hello hello </h1>
+			<h1> Covid-19 Travel Checker </h1>
+			<h3> Enter your starting and ending destination to see data on the regions Covid-19 infections </h3>
+			<br>
+			<br>
 
 			<div class="row border border-secondary">
-				<div class="col-md-6">
+				<div class="col-md-6 location">
 					<h2>Travel From</h2>
+					{{ form.locationFrom.label }}<br>
+					{{ form.locationFrom(size=32) }}<br>
+
+
+					<div class="showlater">
+						<br>
+						<br>
+						<h4>30 day infection tally</h4>
+						<img src="https://www.pythonprogramming.in/media/wysiwyg/matplotlib/mat-7.png" height="200px"> <br>
+						<h5>There have been 32 new cases in the last 7 days</h5>
+						<h5>This is a 12% decrease from the week before </h5> <br>
+						<h5>New infections per 1000 people (7 day average): 3.2</h5>
+					</div>
 				</div>
 
-				<div class="col-md-6">
+				<div class="col-md-6 location">
 					<h2>Travel To</h2>
+					{{ form.locationTo.label }}<br>
+					{{ form.locationTo(size=32) }}<br>
+
+					<div class="showlater">
+						<br>
+						<br>
+						<h4>30 day infection tally</h4>
+						<img src="https://www.pythonprogramming.in/media/wysiwyg/matplotlib/mat-7.png" height="200px"> <br>
+						<h5>There have been 55 new cases in the last 7 days</h5>
+						<h5>This is a 5% increase from the week before </h5> <br>
+						<h5>New infections per 1000 people (7 day average): 1.9</h5>
+					</div>
 				</div>
+
+				<br><br>
+				<div>
+					{{ form.submit(style="height:60px;width:100%; font-size:20px; background-color:#ffa74d") }}
+				</div>
+				<br><br>
+
+				<div class="CDC map">
+					<!-- Markup for HTML (COVID-19 Travel Recommendations by Country: Search COVID-19 risk assessment by country larger map) --><div class='rid_de87adff_405292' data-apiroot='//tools.cdc.gov/api' data-mediatype='html' data-mediaid='405292' data-stripscripts='true' data-stripanchors='false' data-stripimages='false' data-stripcomments='true' data-stripstyles='true' data-cssclasses='syndicate,!no-syndicate' data-ids='' data-xpath='' data-oe='utf-8' data-of='xhtml' data-ns='cdc' data-postprocess='' data-nw='true' data-iframe='true' data-cdc-widget='syndicationIframe' data-apiembedsrc='//tools.cdc.gov/api/embed/html/js/embed-2.0.3.js' data-iframeembedsrc='//tools.cdc.gov/TemplatePackage/contrib/widgets/tp-widget-external-loader.js'></div><script src='//tools.cdc.gov/TemplatePackage/contrib/widgets/tp-widget-external-loader.js' ></script><noscript>You need javascript enabled to view this content or go to <a href='//tools.cdc.gov/api/v2/resources/media/405292/noscript'>source URL</a>.</noscript>
+				</div>
+				<br>
+				<br>
+				<br>
 
 			</div>
 
 		</div>
+		</form>
 	</div>
+
 {% endblock %}

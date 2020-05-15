@@ -19,7 +19,7 @@ bootstrap = Bootstrap(app)
 #These are at the bottom because of the chance for circular dependancies. What are those?
 
 #THIS LINE COMMENTED OUT TEMPORARILY BECAUSE THERE ARE NO MODELS YET
-from app import routes #, models
+from app import routes, models
 
     # with app.app_context():
     #     from app import routes
