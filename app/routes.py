@@ -24,8 +24,18 @@ def data():
     print(request.form["from-search-term"])
     print(request.form["to-search-term"])
 
+
+
+    test_data = ["Copper", 8.94, "#b87333"]
+    
+
+    print("this is the test data")
+    print(test_data)
+
+
+
     from_location = request.form["from-search-term"]
     to_location = request.form["to-search-term"]
 
 
-    return render_template('index.html', title='What', start=from_location, end=to_location)
+    return render_template('index.html', title='What', start=from_location, end=to_location, test=test_data)

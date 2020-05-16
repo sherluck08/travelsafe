@@ -5,6 +5,16 @@
 {% extends "base.html" %}
 
 <head>
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-166860859-1"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'UA-166860859-1');
+	</script>
+
 	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
@@ -143,9 +153,43 @@
 					<div class="showlater">
 						<br>
 						<h2>{{ start }}</h2>
+						<div>
+						 <p>{{ test }}</p>
+						</div>
+
+						<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+					  <script type="text/javascript">
+					    google.charts.load("current", {packages:['corechart']});
+					    google.charts.setOnLoadCallback(drawChart);
+					    function drawChart() {
+					      var data = google.visualization.arrayToDataTable([
+							        ["Element", "Density", { role: "style" } ],
+							        {{ test }}
+							      ]);
+
+					      var view = new google.visualization.DataView(data);
+					      view.setColumns([0, 1,
+					                       { calc: "stringify",
+					                         sourceColumn: 1,
+					                         type: "string",
+					                         role: "annotation" },
+					                       2]);
+
+					      var options = {
+					        title: "Density of Precious Metals, in g/cm^3",
+					        width: 400,
+					        height: 400,
+					        bar: {groupWidth: "95%"},
+					        legend: { position: "none" },
+					      };
+					      var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
+					      chart.draw(view, options);
+					  }
+					  </script>
+					<div id="columnchart_values" style="width: 900px; height: 300px;"></div>
 
 						<h4>Milan, Italy: 30 day infection tally</h4>
-						<img src="https://www.pythonprogramming.in/media/wysiwyg/matplotlib/mat-7.png" height="200px"> <br>
+
 
 						<h5>There have been 32 new cases in the last 7 days</h5>
 						<h5>This is a 12% decrease from the week before </h5> <br>
