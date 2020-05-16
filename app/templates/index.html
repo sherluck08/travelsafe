@@ -5,13 +5,62 @@
 {% extends "base.html" %}
 
 <head>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB6vy0W7oI24QRPSKWWFAIdYAb2Fg57URY&libraries=places&callback=initAutocomplete" async defer></script>
-	<script src="auto-complete.js"></script>
+	<script src="auto-complete.js"></script> -->
 
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB6vy0W7oI24QRPSKWWFAIdYAb2Fg57URY&libraries=places&callback=initAutocomplete"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyB6vy0W7oI24QRPSKWWFAIdYAb2Fg57URY"></script>
+
+	<script>
+	window.onload = function () {
+
+	var chart = new CanvasJS.Chart("chartContainer", {
+		animationEnabled: true,
+
+		title:{
+			text:"Fortune 500 Companies by Country"
+		},
+		axisX:{
+			interval: 1
+		},
+		axisY2:{
+			interlacedColor: "rgba(1,77,101,.2)",
+			gridColor: "rgba(1,77,101,.1)",
+			title: "Number of Companies"
+		},
+		data: [{
+			type: "bar",
+			name: "companies",
+			axisYType: "secondary",
+			color: "#014D65",
+			dataPoints: [
+				{ y: 3, label: "Sweden" },
+				{ y: 7, label: "Taiwan" },
+				{ y: 5, label: "Russia" },
+				{ y: 9, label: "Spain" },
+				{ y: 7, label: "Brazil" },
+				{ y: 7, label: "India" },
+				{ y: 9, label: "Italy" },
+				{ y: 8, label: "Australia" },
+				{ y: 11, label: "Canada" },
+				{ y: 15, label: "South Korea" },
+				{ y: 12, label: "Netherlands" },
+				{ y: 15, label: "Switzerland" },
+				{ y: 25, label: "Britain" },
+				{ y: 28, label: "Germany" },
+				{ y: 29, label: "France" },
+				{ y: 52, label: "Japan" },
+				{ y: 103, label: "China" },
+				{ y: 134, label: "US" }
+			]
+		}]
+	});
+	chart.render();
+
+	}
 </head>
 
 {% block app_content %}
@@ -56,6 +105,7 @@
 
 	  <!-- this is a hidden tag to protect against cross-side request forgery-->
 	{{ form.hidden_tag() }}
+
 	<div class="container">
 		<form action="/index" method="post">
 		<br>
@@ -67,76 +117,21 @@
 			<br>
 			<br>
 
-			<label for="locationTextField">Location</label>
-			<input id="locationTextField" type="text" size="50">
+			<div class="test">
 
-			<script>
-					function init() {
-							var input = document.getElementById('locationTextField');
-							var autocomplete = new google.maps.places.Autocomplete(input);
-					}
-
-					google.maps.event.addDomListener(window, 'load', init);
-			</script>
-
-		<div class="container">
-		  <div class="panel panel-primary">
-		    <div class="panel-heading">
-		      <h2 class="panel-title">Add your Address</h2>
-		    </div>
-		    <div class="panel-body">
-		      <input id="autocomplete" placeholder="Enter your address" onFocus="geolocate()" type="text" class="form-control">
-		      <div id="address">
-		        <div class="row">
-		          <div class="col-md-6">
-		            <label class="control-label">Street address</label>
-		            <input class="form-control" id="street_number" disabled="true">
-		          </div>
-		          <div class="col-md-6">
-		            <label class="control-label">Route</label>
-		            <input class="form-control" id="route" disabled="true">
-		          </div>
-		        </div>
-		        <div class="row">
-		          <div class="col-md-6">
-		            <label class="control-label">City</label>
-		            <input class="form-control field" id="locality" disabled="true">
-		          </div>
-		          <div class="col-md-6">
-		            <label class="control-label">State</label>
-		            <input class="form-control" id="administrative_area_level_1" disabled="true">
-		          </div>
-		        </div>
-		        <div class="row">
-		          <div class="col-md-6">
-		            <label class="control-label">Zip code</label>
-		            <input class="form-control" id="postal_code" disabled="true">
-		          </div>
-		          <div class="col-md-6">
-		            <label class="control-label">Country</label>
-		            <input class="form-control" id="country" disabled="true">
-		          </div>
-		        </div>
-		      </div>
-		    </div>
-  	</div>
-	</div>
-
-
-
+			</div>
 
 			<div class="row border border-secondary">
 				<div class="col-md-6 location">
 					<h2>Travel From</h2>
-					{{ form.locationFrom.label }}<br>
-					{{ form.locationFrom(size=32) }}<br>
-
+					<input type="text" class="form-control" id="from-search-term" size="50">
 
 					<div class="showlater">
 						<br>
 						<br>
 						<h4>Milan, Italy: 30 day infection tally</h4>
 						<img src="https://www.pythonprogramming.in/media/wysiwyg/matplotlib/mat-7.png" height="200px"> <br>
+
 						<h5>There have been 32 new cases in the last 7 days</h5>
 						<h5>This is a 12% decrease from the week before </h5> <br>
 						<h5>New infections per 1000 people (7 day average): 3.2</h5>
@@ -145,8 +140,7 @@
 
 				<div class="col-md-6 location">
 					<h2>Travel To</h2>
-					{{ form.locationTo.label }}<br>
-					{{ form.locationTo(size=32) }}<br>
+					<input type="text" class="form-control" id="to-search-term" size="50">
 
 					<div class="showlater">
 						<br>
@@ -177,5 +171,16 @@
 		</div>
 		</form>
 	</div>
+
+	<script>
+		function activatePlacesSearch(){
+			var inputTo = document.getElementById('to-search-term');
+			var inputFrom = document.getElementById('from-search-term')
+			var autocompleteTo = new google.maps.places.Autocomplete(inputTo);
+			var autocompleteFrom = new google.maps.places.Autocomplete(inputFrom);
+		}
+	</script>
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB6vy0W7oI24QRPSKWWFAIdYAb2Fg57URY&libraries=places&callback=activatePlacesSearch"></script>
+
 
 {% endblock %}
