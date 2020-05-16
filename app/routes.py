@@ -9,12 +9,23 @@ from app import app, db
 
 def index():
 
-    form = LocationForm()
+    #form = LocationForm()
     data = []
-    if form.validate_on_submit():
-        print("success")
-        url = "https://www.pythonprogramming.in/media/wysiwyg/matplotlib/mat-7.png"
-        data.append(url)
-        print(data)
-        
-    return render_template('index.html', title='Teacher Home', form=form)
+    print("testingtestingbuttonsmash")
+    from_location = ""
+    to_location = ""
+    #print(request.form['from-search-term'])
+
+    return render_template('index.html', title='Teacher Home', start=from_location, end=to_location)
+
+@app.route('/data', methods=['GET', 'POST'])
+def data():
+
+    print(request.form["from-search-term"])
+    print(request.form["to-search-term"])
+
+    from_location = request.form["from-search-term"]
+    to_location = request.form["to-search-term"]
+
+
+    return render_template('index.html', title='What', start=from_location, end=to_location)
