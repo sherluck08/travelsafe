@@ -61,22 +61,21 @@ class TornadoWorker(Worker):
             self.alive = False
 
     def heartbeat(self):
-        if not self.alive:
-            if self.server_alive:
-                if hasattr(self, 'server'):
-                    try:
-                        self.server.stop()
-                    except Exception:
-                        pass
-                self.server_alive = False
-            else:
-                if TORNADO5:
-                    for callback in self.callbacks:
-                        callback.stop()
-                    self.ioloop.stop()
-                else:
-                    if not self.ioloop._callbacks:
-                        self.ioloop.stop()
+        if self.alive:
+            return
+        if self.server_alive:
+            if hasattr(self, 'server'):
+                try:
+                    self.server.stop()
+                except Exception:
+                    pass
+            self.server_alive = False
+        elif TORNADO5:
+            for callback in self.callbacks:
+                callback.stop()
+            self.ioloop.stop()
+        elif not self.ioloop._callbacks:
+            self.ioloop.stop()
 
     def init_process(self):
         # IOLoop cannot survive a fork or be shared across processes

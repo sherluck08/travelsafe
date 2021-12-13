@@ -6,15 +6,13 @@ from app import app, db
 
 @app.route('/')
 @app.route('/index', methods=['GET', 'POST'])
-
 def index():
 
     form = LocationForm()
-    data = []
     if form.validate_on_submit():
         print("success")
         url = "https://www.pythonprogramming.in/media/wysiwyg/matplotlib/mat-7.png"
-        data.append(url)
+        data = [url]
         print(data)
-        
+
     return render_template('index.html', title='Teacher Home', form=form)

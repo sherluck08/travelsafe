@@ -287,10 +287,7 @@ class Token(tuple):
 
     def test_any(self, *iterable):
         """Test against multiple token expressions."""
-        for expr in iterable:
-            if self.test(expr):
-                return True
-        return False
+        return any(self.test(expr) for expr in iterable)
 
     def __repr__(self):
         return "Token(%r, %r, %r)" % (self.lineno, self.type, self.value)
@@ -732,11 +729,10 @@ class Lexer(object):
                         ):
                             # The start of text between the last newline and the tag.
                             l_pos = text.rfind("\n") + 1
-                            if l_pos > 0 or line_starting:
-                                # If there's only whitespace between the newline and the
-                                # tag, strip it.
-                                if not lstrip_unless_re.search(text, l_pos):
-                                    groups = (text[:l_pos],) + groups[1:]
+                            if (
+                                l_pos > 0 or line_starting
+                            ) and not lstrip_unless_re.search(text, l_pos):
+                                groups = (text[:l_pos],) + groups[1:]
 
                     for idx, token in enumerate(tokens):
                         # failure group
@@ -765,7 +761,6 @@ class Lexer(object):
                             lineno += data.count("\n") + newlines_stripped
                             newlines_stripped = 0
 
-                # strings as token just are yielded as it.
                 else:
                     data = m.group()
                     # update brace/parentheses balance
@@ -833,8 +828,6 @@ class Lexer(object):
                 # publish new function and start again
                 pos = pos2
                 break
-            # if loop terminated without break we haven't found a single match
-            # either we are at the end of the file or we have a problem
             else:
                 # end of text
                 if pos >= source_length:
